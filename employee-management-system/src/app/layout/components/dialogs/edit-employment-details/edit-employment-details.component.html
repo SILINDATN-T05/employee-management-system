@@ -1,0 +1,29 @@
+<h2>Update Employment Details</h2>
+<form [formGroup]="detailsForm">
+  <mat-form-field class="example-full-width">
+    <input matInput placeholder="Employment Number" formControlName="employeeNumber">
+    <mat-error *ngIf="detailsForm.get('employeeNumber').valid || detailsForm.get('employeeNumber').untouched">
+      Employment Number is <strong>required</strong>
+    </mat-error>
+  </mat-form-field>
+  <mat-form-field class="example-full-width">
+    <input matInput [matDatepicker]="dp1" placeholder="Date of Employment"  formControlName="employedDate">
+    <mat-datepicker-toggle matSuffix [for]="dp1"></mat-datepicker-toggle>
+    <mat-datepicker #dp1 disabled="false"></mat-datepicker>
+    <mat-error *ngIf="detailsForm.get('employedDate').valid || detailsForm.get('employedDate').untouched">
+      Date of Employment is <strong>required</strong>
+    </mat-error>
+  </mat-form-field>
+  <mat-form-field class="example-full-width">
+    <input matInput [matDatepicker]="dp3" placeholder="Date of Termination"  formControlName="terminatedDate">
+    <mat-datepicker-toggle matSuffix [for]="dp3"></mat-datepicker-toggle>
+    <mat-datepicker #dp3 disabled="false"></mat-datepicker>
+    <mat-error *ngIf="detailsForm.get('terminatedDate').valid || detailsForm.get('terminatedDate').untouched">
+      Date of Termination is <strong>required</strong>
+    </mat-error>
+  </mat-form-field>
+  <div class="pull-right">
+    <button mat-raised-button (click)="onNoClick()">Cancel</button>
+    <button mat-raised-button color="primary" (click)="updateDetails()" [disabled]="detailsForm.invalid || detailsForm.untouched || !isEmploymentValid()">Save</button>
+  </div>
+</form>

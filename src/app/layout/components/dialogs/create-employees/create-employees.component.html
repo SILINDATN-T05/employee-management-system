@@ -1,0 +1,99 @@
+<mat-horizontal-stepper [linear]="isLinear" #stepper>
+  <mat-step [stepControl]="personalForm">
+    <form [formGroup]="personalForm">
+      <ng-template matStepLabel>Fill out personal details</ng-template>
+      <mat-form-field class="example-full-width">
+        <input matInput placeholder="First Name" formControlName="firstName">
+        <mat-error *ngIf="personalForm.get('firstName').valid || personalForm.get('firstName').untouched">
+          First Name is <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field class="example-full-width">
+        <input matInput placeholder="Last Name" formControlName="lastName">
+        <mat-error *ngIf="personalForm.get('lastName').valid || personalForm.get('lastName').untouched">
+          Last Name is <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field class="example-full-width">
+        <input matInput [matDatepicker]="dp2" placeholder="Date of Birth"  formControlName="birthDate" disabled>
+        <mat-datepicker-toggle matSuffix [for]="dp2"></mat-datepicker-toggle>
+        <mat-datepicker #dp2 disabled="false"></mat-datepicker>
+        <mat-error *ngIf="personalForm.get('birthDate').valid || personalForm.get('birthDate').untouched">
+          Date of Birth is <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
+      <div>
+        <button mat-button matStepperNext>Next</button>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step [stepControl]="employmentForm">
+    <form [formGroup]="employmentForm">
+      <ng-template matStepLabel>Fill out employment details</ng-template>
+      
+      <mat-form-field class="example-full-width">
+        <input matInput placeholder="Employment Number" formControlName="employeeNumber" oninput="this.value = this.value.toUpperCase()">
+        <mat-error *ngIf="employmentForm.get('employeeNumber').valid || employmentForm.get('employeeNumber').untouched">
+          Employment Number is <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field class="example-full-width">
+        <input matInput [matDatepicker]="dp1" placeholder="Date of Employment"  formControlName="employedDate" disabled>
+        <mat-datepicker-toggle matSuffix [for]="dp1"></mat-datepicker-toggle>
+        <mat-datepicker #dp1 disabled="false"></mat-datepicker>
+        <mat-error *ngIf="employmentForm.get('employedDate').valid || employmentForm.get('employedDate').untouched">
+          Date of Employment is <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field class="example-full-width">
+        <input matInput [matDatepicker]="dp3" placeholder="Date of Termination"  formControlName="terminatedDate" disabled>
+        <mat-datepicker-toggle matSuffix [for]="dp3"></mat-datepicker-toggle>
+        <mat-datepicker #dp3 disabled="false"></mat-datepicker>
+        <mat-error *ngIf="employmentForm.get('terminatedDate').valid || employmentForm.get('terminatedDate').untouched">
+          Date of Termination is <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
+      <div>
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-button matStepperNext>Next</button>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step>
+    <ng-template matStepLabel>Done</ng-template>
+    <h4>Personal Details</h4>
+    <div class="row">
+      <div class="col-md-6">First Name : </div>
+      <div class="col-md-6">{{ personalForm.value.firstName }}</div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">Last Name : </div>
+      <div class="col-md-6">{{ personalForm.value.lastName }}</div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">Date of Birth : </div>
+      <div class="col-md-6">{{ personalForm.value.birthDate | date: 'yyyy/MM/dd' }}</div>
+    </div>
+    <h4>Employment Details</h4>
+    <div class="row">
+      <div class="col-md-6">Employment Number : </div>
+      <div class="col-md-6">{{ employmentForm.value.employeeNumber }}</div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">Employment Date : </div>
+      <div class="col-md-6">{{ employmentForm.value.employedDate | date: 'yyyy/MM/dd' }}</div>
+    </div>
+    <div class="row">
+      <div class="col-md-6"> Date of Termination : </div>
+      <div class="col-md-6">{{ employmentForm.value.terminatedDate | date: 'yyyy/MM/dd' }}</div>
+    </div>
+    <mat-error *ngIf="isEmploymentValid()">
+      Employment Date must be after Date of Birth and Termination Date must be after Employment Date.
+    </mat-error>
+    <div>
+      <button mat-button matStepperPrevious>Back</button>
+      <button mat-button (click)="stepper.reset()">Reset</button>
+      <button mat-raised-button color="primary" (click)="createEmployee()" [disabled]="isEmploymentValid()">Save</button>
+    </div>
+  </mat-step>
+</mat-horizontal-stepper>
