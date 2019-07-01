@@ -16,6 +16,7 @@
 **Note** that this seed project requires **node >=v8.9.0 and npm >=4**.
 
 In order to start the project use:
+git clone https://github.com/SILINDATN-T05/employee-management-system.git
 
 \$ cd employee-management-system
 
