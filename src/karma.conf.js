@@ -24,7 +24,7 @@ module.exports = function(config) {
             defaultTimeoutInterval: 2500000
         },
         angularCli: {
-            environment: 'prod'
+            environment: 'dev'
         },
         reporters: ['progress', 'kjhtml'],
         port: 9876,
